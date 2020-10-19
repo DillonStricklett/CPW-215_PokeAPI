@@ -1,5 +1,6 @@
 ﻿using PokeAPICore;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PokeApiConsole
@@ -9,8 +10,11 @@ namespace PokeApiConsole
         static async Task Main()
         {
             PokeApiClient client = new PokeApiClient();
-            string result = await client.GetPokemonByName("geodude");
-            Console.WriteLine(result);
+            Pokemon result = await client.GetPokemonByName("geodude");
+            Console.WriteLine($"Pokemon Id: {result.id}" + 
+                $"\nName: {result.name}" +
+                $"\nWeight (in hectograms): {result.weight}" +
+                $"\nHeight (in inches): {result.height}");
             Console.ReadKey();
         }
     }
