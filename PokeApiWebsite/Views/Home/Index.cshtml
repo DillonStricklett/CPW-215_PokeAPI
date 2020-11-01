@@ -1,0 +1,25 @@
+﻿@model PokeDexEntryViewModel
+@{
+    ViewData["Title"] = "PokeDex Entry " + Model.Name;
+}
+
+<h2>PokeDex Entry</h2>
+
+<img src="@Model.PokeDexImageUrl" alt="Picture of @Model.Name" />
+
+<h3>@Model.Name</h3>
+<p>
+    Weight: @Model.Weight<br />
+    Height: @Model.Height<br />
+</p>
+
+<h4>Move List</h4>
+<ul>
+    @foreach(string move in Model.MoveList)
+    {
+        <li>@move</li>
+    }
+</ul>
+
+<button>Previous</button>
+<button>Next</button>
