@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 namespace PokeAPICore
@@ -11,7 +12,15 @@ namespace PokeAPICore
     /// </summary>
     public class PokeApiClient
     {
-        static readonly HttpClient client = new HttpClient();
+        static readonly HttpClient client;
+
+        static PokeApiClient()
+        {
+            client = new HttpClient();
+            // Must end with forward slash
+            client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
+            client.DefaultRequestHeaders.Add("User-Agent", "Dillon's PokeAPI");
+        }
 
         /// <summary>
         /// Retrieve pokemon by name
@@ -28,7 +37,7 @@ namespace PokeAPICore
 
         private static async Task<Pokemon> GetPokemonByNameOrId(string name)
         {
-            string url = $"https://pokeapi.co/api/v2/pokemon/{name}";
+            string url = $"pokemon/{name}";
             HttpResponseMessage response = await client.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
